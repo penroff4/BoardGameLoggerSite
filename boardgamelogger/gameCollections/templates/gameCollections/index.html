@@ -1,0 +1,9 @@
+{% if latest_game_collections_list %}
+    <ul>
+    {% for gameCollection in latest_game_collections_list %}
+        <li><a href="/gameCollections/{{ gameCollection.id }}/">{{ gameCollection.collection_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No game collections are available.</p>
+{% endif %}
