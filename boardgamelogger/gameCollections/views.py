@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 # from django.template import loader
 
 from .models import gameCollection
@@ -13,8 +13,9 @@ def index(request):
     
     return render(request, 'gameCollections/index.html', context)
 
-def gameDetail(request, game_id):
-    return HttpResponse("You're looking at game %s." % game_id)
-
 def gameCollectionView(request, collection_id):
-    return HttpResponse("You're looking at collection %s." % collection_id)
+    try:
+        collection = gameCollection.objects.get(pk=collection_id)
+    except gameCollection.DoesNotExist:
+        raise Http404("That game collection does not exist")
+    return render(request, 'gameCollections/detail.html', {'collection': collection})
