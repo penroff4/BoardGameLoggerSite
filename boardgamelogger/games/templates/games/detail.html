@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="utf-8">
         <title>Game Detail Page</title>
     </head>
+
     <body>
         <h1>{{ game.game_title }}</h1>  
         <ul>
@@ -13,5 +15,19 @@
             <li>Published Date:{{ game.game_pub_date }}</li>
             <li>Added to Site Date: {{ game.game_added_date }}</li>
         </ul>
+        <br>
+        <form action="{% url 'games:detail' game.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>{{ game.game_title }} Rating</h1></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in '0123456789'|make_list %}
+                <input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ choice }}">
+                <label for="choice{{ forloop.counter }}">{{ choice }}</label><br>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Vote">
+        </form>
     </body>
+
 </html>

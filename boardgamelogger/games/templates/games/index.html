@@ -9,7 +9,7 @@
             <ul>
             {% for game in latest_games_list %}
                 <li>
-                    <a href="/games/{{ game.id }}/">{{ game.game_title }}</a>
+                    <a href="{% url 'games:detail' game.id %}">{{ game.game_title }}</a>
                 </li>
             {% endfor %}
             </ul>
